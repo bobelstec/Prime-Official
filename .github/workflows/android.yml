@@ -36,10 +36,11 @@ jobs:
 
       - name: Compilar o APK
         run: gradle assembleRelease --no-daemon
+        working-directory: prime-app-android # Entra na pasta certa antes de compilar
 
       - name: Publicar o APK como artifact
         uses: actions/upload-artifact@v4
         with:
           name: prime-apk
-          path: app/build/outputs/apk/release/*.apk
+          path: prime-app-android/app/build/outputs/apk/release/*.apk # Caminho corrigido
           if-no-files-found: error
