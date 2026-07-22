@@ -1,0 +1,38 @@
+name: Build APK PRIME+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+      - name: Instalar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Preparar Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Gerar keystore de debug (assina o release)
+        run: |
+          mkdir -p ~/.android
+          keytool -genkeypair -v \
+            -keystore ~/.android/debug.keystore \
+            -storepass android -keypass android \
+            -alias androiddebugkey \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US" || true
+      - name: Compilar o APK
+        run: gradle assembleRelease --no-daemon --stacktrace
+        working-directory: prime-app-android
+      - name: Publicar o APK como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: prime-apk
+          path: prime-app-android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
