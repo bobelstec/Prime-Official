@@ -24,11 +24,9 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Forçar o Android a ignorar erros de PNG
+      - name: Remover arquivos de imagem corrompidos
         run: |
-          echo "android.aapt2FromMavenOverride=true" >> gradle.properties
-          echo "android.skipResourceValidation=true" >> gradle.properties
-          echo "android.crunchPngs=false" >> gradle.properties
+          find app/src/main/res/ -name "ic_launcher*.png" -exec rm -f {} \;
         working-directory: prime-app-android
 
       - name: Gerar keystore de debug
