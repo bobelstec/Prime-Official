@@ -24,9 +24,13 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Remover arquivos de imagem corrompidos
+      - name: Corrigir imagens de ícone corrompidas
         run: |
-          find app/src/main/res/ -name "ic_launcher*.png" -exec rm -f {} \;
+          # Cria uma imagem PNG mínima válida de 1x1 pixel transparente para substituir as corrompidas
+          printf '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15\xc4\x89\x00\x00\x00\rIDATx\x9cc` \x00\x00\x00\x02\x00\x01H\xaf\xa4q\x00\x00\x00\x00IEND\xaeB`\x82' > /tmp/pixel.png
+          
+          # Sobrescreve todas as variações problemáticas de ic_launcher com o arquivo válido
+          find app/src/main/res/ -name "ic_launcher*.png" -exec cp /tmp/pixel.png {} \;
         working-directory: prime-app-android
 
       - name: Gerar keystore de debug
