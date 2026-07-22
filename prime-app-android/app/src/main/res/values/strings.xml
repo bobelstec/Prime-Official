@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PRIME+</string>
+
+    <!-- ============================================================= -->
+    <!--  >>> TROQUE APENAS ESTA LINHA <<<                             -->
+    <!--  Coloque aqui o domínio de produção onde o sistema roda.      -->
+    <!--  Precisa ser HTTPS. Ex: https://app.suaempresa.com.br         -->
+    <!-- ============================================================= -->
+    <string name="app_url">https://SEU-DOMINIO-AQUI.com.br</string>
+
+</resources>
