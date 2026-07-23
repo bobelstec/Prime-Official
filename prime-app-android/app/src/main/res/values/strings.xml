@@ -6,6 +6,6 @@
     <!--  Coloque aqui o domínio de produção onde o sistema roda.      -->
     <!--  Precisa ser HTTPS. Ex: https://app.suaempresa.com.br         -->
     <!-- ============================================================= -->
-    <string name="app_url">https://SEU-DOMINIO-AQUI.com.br</string>
+        <string name="app_url">https://prime-plus-oficial-rxt35hnrhq-wl.a.run.app</string>
 
 </resources>
